@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Subjects</title>
+</head>
+<body>
+<form action="#" th:action="@{/subject-update}" th:object="${subject}" method="post">
+    <label for="id_s">ID</label>
+    <input readonly type="number" th:field="*{id_s}" id="id_s" placeholder="ID">
+    <br/>
+    <label for="subject_name">Subject</label>
+    <input type="text" th:field="*{subject_name}" id="subject_name" placeholder="Subject">
+    <br/>
+    <label for="class_id">Class(id)</label>
+    <input type="number" th:field="*{class_id}" id="class_id" placeholder="Class(id)">
+    <br/>
+    <label for="teacher_id">Teacher(id)</label>
+    <input type="number" th:field="*{teacher_id}" id="teacher_id" placeholder="Teacher(id)">
+    <br/>
+    <input type="submit" value="Update Subject">
+</form>
+</body>
+</html>

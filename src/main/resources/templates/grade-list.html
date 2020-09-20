@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Grades</title>
+</head>
+<body>
+<div th:switch="${grades}">
+    <h2 th:case="null">No grades found!</h2>
+    <div th:case="*">
+        <h2>Grades</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Pupil(id)</th>
+                <th>Subject(id)</th>
+                <th>Grade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="grade : ${grades}">
+                <td th:text="${grade.pupil}"></td>
+                <td th:text="${grade.subject}"></td>
+                <td th:text="${grade.grade}"></td>
+                <td><a th:href="@{grade-update/{id}(id=${grade.id})}">Edit</a></td>
+                <td><a th:href="@{grade-delete/{id}(id=${grade.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/grade-create">Create grade</a></p>
+    <h3>
+        <p><a href="/users">Teachers</a></p>
+        <p><a href="/pupils">Pupils</a></p>
+        <p><a href="/subjects">Subjects</a></p>
+        <p><a href="/classes">Classes</a></p>
+    </h3>
+</div>
+</body>
+</html>

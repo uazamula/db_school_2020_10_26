@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Subjects</title>
+</head>
+<body>
+<div th:switch="${subjects}">
+    <h2 th:case="null">No subjects found!</h2>
+    <div th:case="*">
+        <h2>Subjects</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Subject</th>
+                <th>Class(id)</th>
+                <th>Teacher(id)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="subject : ${subjects}">
+                <td th:text="${subject.id_s}"></td>
+                <td th:text="${subject.subject_name}"></td>
+                <td th:text="${subject.class_id}"></td>
+                <td th:text="${subject.teacher_id}"></td>
+                <td><a th:href="@{subject-update/{id_s}(id_s=${subject.id_s})}">Edit</a></td>
+                <td><a th:href="@{subject-delete/{id_s}(id_s=${subject.id_s})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/subject-create">Create subject</a></p>
+    <h3>
+        <p><a href="/users">Teachers</a></p>
+        <p><a href="/pupils">Pupils</a></p>
+        <p><a href="/classes">Classes</a></p>
+        <p><a href="/grades">Grades</a></p>
+    </h3>
+</div>
+</body>
+</html>

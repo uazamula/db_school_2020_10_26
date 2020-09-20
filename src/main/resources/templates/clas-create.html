@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" h:action="@{/clas-create}" h:object="${class_}" method="post">
+    <input type="number" id="class_int" name = "class_int" h:value="*{class_int}"  placeholder="Class"/>
+    <input type="text" id="class_char" name="class_char" h:value="*{class_char}"  placeholder="Letter"/>
+    <input type="number" id="teacher_id" name="teacher_id" h:value="*{teacher_id}"  placeholder="Teacher(id)"/>
+    <input type="submit" value="Create Class"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/pupil-update}" th:object="${pupil}" method="post">
+    <label for="id_p">ID</label>
+    <input readonly type="number" th:field="*{id_p}" id="id_p" placeholder="ID">
+    <br/>
+    <label for="last_name">Last name</label>
+    <input type="text" th:field="*{last_name}" id="last_name" placeholder="Last name">
+    <br/>
+    <label for="first_name">First name</label>
+    <input type="text" th:field="*{first_name}" id="first_name" placeholder="First name">
+    <br/>
+    <label for="class_p">Class(id)</label>
+    <input type="number" th:field="*{class_p}" id="class_p" placeholder="Class(id)">
+    <br/>
+    <input type="submit" value="Update Pupil">
+</form>
+</body>
+</html>
