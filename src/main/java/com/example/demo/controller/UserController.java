@@ -16,45 +16,48 @@ import java.util.List;
 //@RequestMapping("/teachers")//
 public class UserController {
     private final UserService userService;
+    private final String s="teacher";
+    private final String ss="teachers";
+    private final String IDS="id";
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping(ss)
     public String findAll(Model model){
         List<User> users = userService.findAll();
-        model.addAttribute("users", users);
-        return "user-list";
+        model.addAttribute(ss, users);
+        return s+"-list";
     }
-    @GetMapping("/user-create")
+    @GetMapping(s+"-create")
     public  String createUserForm(User user){
-        return "/user-create";
+        return s+"-create";
     }
 
-    @PostMapping("/user-create")
+    @PostMapping(s+"-create")
     public  String createUser(User user){
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/"+ss;
     }
 
-    @GetMapping("user-delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
+    @GetMapping(s+"-delete/{"+IDS+"}")
+    public String deleteUser(@PathVariable(IDS) Long id){
         userService.deleteById(id);
-        return "redirect:/users";
+        return "redirect:/"+ss;
     }
 // add slash before user-update
-    @GetMapping("user-update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, Model model){
+    @GetMapping(s+"-update/{"+IDS+"}")
+    public String updateUserForm(@PathVariable(IDS) Long id, Model model){
         User user = userService.findById(id);
-        model.addAttribute("user", user);
-        return "user-update";
+        model.addAttribute(s, user);
+        return s+"-update";
     }
 
-    @PostMapping("/user-update")
+    @PostMapping(s+"-update")
     public String updateUser(User user){
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/"+ss;
     }
 }
