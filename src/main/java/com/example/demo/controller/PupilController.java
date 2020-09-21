@@ -14,44 +14,48 @@ import java.util.List;
 @Controller
 public class PupilController {
     private final PupilService pupilService;
+    private final String s="pupil";
+    private final String ss="pupils";
+    private final String IDS="id_p";
 
     @Autowired
     public PupilController(PupilService pupilService) {
         this.pupilService = pupilService;
     }
-    @GetMapping("/pupils")
+   // @GetMapping("/pupils")
+    @GetMapping(ss)
     public String findAll(Model model){
         List<Pupil> pupils = pupilService.findAll();
-        model.addAttribute("pupils", pupils);
-        return "pupil-list";
+        model.addAttribute(ss, pupils);
+        return s+"-list";
     }
-    @GetMapping("/pupil-create")
+    @GetMapping(s+"-create")
     public String createPupilForm(Pupil pupil){
-        return "/pupil-create";
+        return s+"-create";
     }
 
-    @PostMapping("/pupil-create")
+    @PostMapping(s+"-create")
     public String createPupil(Pupil pupil){
         pupilService.savePupil(pupil);
-        return "redirect:/pupils";
+        return "redirect:/"+ss;
     }
 
-    @GetMapping("pupil-delete/{id_p}")
-    public String deletePupil(@PathVariable("id_p") Long id){
+    @GetMapping(s+"-delete/{"+IDS+"}")
+    public String deletePupil(@PathVariable(IDS) Long id){
         pupilService.deleteById(id);
-        return "redirect:/pupils";
+        return "redirect:/"+ss;
     }
 
-    @GetMapping("pupil-update/{id_p}")
-    public String updatePupilForm(@PathVariable("id_p") Long id, Model model){
+    @GetMapping(s+"-update/{"+IDS+"}")
+    public String updatePupilForm(@PathVariable(IDS) Long id, Model model){
         Pupil pupil = pupilService.findById(id);
-        model.addAttribute("pupil", pupil);
-        return "pupil-update";
+        model.addAttribute(s, pupil);
+        return s+"-update";
     }
-    @PostMapping("/pupil-update")
+    @PostMapping(s+"-update")
     public String updatePupil(Pupil pupil){
         pupilService.savePupil(pupil);
-        return "redirect:/pupils";
+        return "redirect:/"+ss;
     }
 
 }
