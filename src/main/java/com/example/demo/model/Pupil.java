@@ -10,11 +10,12 @@ import javax.persistence.*;
 public class Pupil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_p;
+    @Column(name = "id_p")
+    private Long id;
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
     @Column(name = "class_p")
-    private Long class_p;
+    private Long classP;
 }

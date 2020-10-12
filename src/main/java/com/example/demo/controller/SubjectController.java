@@ -36,14 +36,14 @@ public class SubjectController {
         return "redirect:/subjects";
     }
 
-    @GetMapping("subject-delete/{id_s}")
-    public String deleteSubject(@PathVariable("id_s") Long id){
+    @GetMapping("subject-delete/{id}")//!!!!!! id_s
+    public String deleteSubject(@PathVariable("id") Long id){//!!!!!!!!! id_s
         subjectService.deleteById(id);
         return "redirect:/subjects";
     }
 
-    @GetMapping("/subject-update/{id_s}")
-    public String updateSubjectForm(@PathVariable("id_s") Long id, Model model){
+    @GetMapping("/subject-update/{id}")//!!!!!!! id_s
+    public String updateSubjectForm(@PathVariable("id") Long id, Model model){//!!!!!!! id_s
         Subject subject = subjectService.findById(id);
         model.addAttribute("subject", subject);
         return "subject-update";

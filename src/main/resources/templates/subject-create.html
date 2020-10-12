@@ -6,12 +6,12 @@
 </head>
 <body>
     <form action="#" th:action="@{/subject-create}" th:object="${subject}" method="post"/>
-    <label for="subject_name">Subject</label>
-    <input type="text" id="subject_name" name="subject_name" th:value="*{subject_name}"  placeholder="Subject"/>
-    <label for="class_id">Class(id)</label>
-    <input type="number" id="class_id" name="class_id" th:value="*{class_id}"  placeholder="Class(id)"/>
-    <label for="teacher_id">Teacher(id)</label>
-    <input type="number" id="teacher_id" name="teacher_id" th:value="*{teacher_id}"  placeholder="Teacher(id)"/>
+    <label for="subjectName">Subject</label>
+    <input type="text" id="subjectName" name="subjectName" th:value="*{subjectName}"  placeholder="Subject"/>
+    <label for="classId">Class(id)</label>
+    <input type="number" id="classId" name="classId" th:value="*{classId}"  placeholder="Class(id)"/>
+    <label for="teacherId">Teacher(id)</label>
+    <input type="number" id="teacherId" name="teacherId" th:value="*{teacherId}"  placeholder="Teacher(id)"/>
     <input type="submit" value="Create Subject"/>
     </form>
 </body>

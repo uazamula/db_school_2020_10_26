@@ -20,12 +20,12 @@
             </thead>
             <tbody>
             <tr th:each="pupil : ${pupils}">
-                <td th:text="${pupil.id_p}"></td>
-                <td th:text="${pupil.last_name}"></td>
-                <td th:text="${pupil.first_name}"></td>
-                <td th:text="${pupil.class_p}"></td>
-                <td><a th:href="@{pupil-update/{id_p}(id_p=${pupil.id_p})}">Edit</a></td>
-                <td><a th:href="@{pupil-delete/{id_p}(id_p=${pupil.id_p})}">Delete</a></td>
+                <td th:text="${pupil.id}"></td>
+                <td th:text="${pupil.lastName}"></td>
+                <td th:text="${pupil.firstName}"></td>
+                <td th:text="${pupil.classP}"></td>
+                <td><a th:href="@{pupil-update/{id}(id=${pupil.id})}">Edit</a></td>
+                <td><a th:href="@{pupil-delete/{id}(id=${pupil.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>

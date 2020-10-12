@@ -6,17 +6,17 @@
 </head>
 <body>
 <form action="#" th:action="@{/pupil-update}" th:object="${pupil}" method="post">
-    <label for="id_p">ID</label>
-    <input readonly type="number" th:field="*{id_p}" id="id_p" placeholder="ID">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
-    <label for="last_name">Last name</label>
-    <input type="text" th:field="*{last_name}" id="last_name" placeholder="Last name">
+    <label for="lastName">Last name</label>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last name">
     <br/>
-    <label for="first_name">First name</label>
-    <input type="text" th:field="*{first_name}" id="first_name" placeholder="First name">
+    <label for="firstName">First name</label>
+    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First name">
     <br/>
-    <label for="class_p">Class(id)</label>
-    <input type="number" th:field="*{class_p}" id="class_p" placeholder="Class(id)">
+    <label for="classP">Class(id)</label>
+    <input type="number" th:field="*{classP}" id="classP" placeholder="Class(id)">
     <br/>
     <input type="submit" value="Update Pupil">
 </form>

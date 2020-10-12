@@ -36,15 +36,15 @@ public class ClassController {
         return "redirect:/classes";
     }
 
-    @GetMapping("class-delete/{id_c}")
-    public String deleteClass(@PathVariable("id_c") Long id_c){
-        classService.deleteById(id_c);
+    @GetMapping("class-delete/{id}")
+    public String deleteClass(@PathVariable("id") Long id){
+        classService.deleteById(id);
         return "redirect:/classes";
     }
     // add slash before user-update
-    @GetMapping("class-update/{id_c}")
-    public String updateClassForm(@PathVariable("id_c") Long id_c, Model model){
-        Class aClass = classService.findById(id_c);
+    @GetMapping("class-update/{id}")
+    public String updateClassForm(@PathVariable("id") Long id, Model model){
+        Class aClass = classService.findById(id);
         model.addAttribute("aClass", aClass);
         return "class-update";
     }

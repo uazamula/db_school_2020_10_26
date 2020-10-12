@@ -16,7 +16,7 @@ public class PupilController {
     private final PupilService pupilService;
     private final String s="pupil";
     private final String ss="pupils";
-    private final String IDS="id_p";
+    private final String IDS="id";
 
     @Autowired
     public PupilController(PupilService pupilService) {

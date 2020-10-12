@@ -11,14 +11,15 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_s;
+    @Column(name = "id_s")
+    private Long id; //!!!!!!!!! id_s
 
-    @Column
-    private String subject_name;
+    @Column(name = "subject_name")
+    private String subjectName;
 
-    @Column
-    private Long class_id;
+    @Column(name = "class_id")
+    private Long classId;
 
-    @Column
-    private  Long teacher_id;
+    @Column(name = "teacher_id")
+    private  Long teacherId;
 }

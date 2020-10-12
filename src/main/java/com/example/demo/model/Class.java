@@ -1,22 +1,26 @@
 package com.example.demo.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 
+@Data
 @Entity
 @Table(name="classes")
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_c;
+    @Column(name ="id_c")
+    private Long id;
     @Column(name = "class_int")
-    private int class_int;
+    private int classInt;
     @Column(name = "class_char")
-    private char class_char;
+    private char classChar;
     @Column(name = "teacher_id")
-    private Long teacher_id;
+    private Long teacherId;
 
-    public Class() {
+   /* public Class() {
     }
 
     public Class(Long id_c, int class_int, char class_char, Long teacher_id) {
@@ -57,6 +61,9 @@ public class Class {
     public void setTeacher_id(Long teacher_id) {
         this.teacher_id = teacher_id;
     }
+
+    */
+
     /*@OneToOne(fetch = FetchType.EAGER,optional = false,cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id",referencedColumnName = "id"/*
     ,nullable = false,updatable = false,insertable = false)
