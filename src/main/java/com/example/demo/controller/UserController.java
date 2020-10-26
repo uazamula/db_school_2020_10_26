@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Subject;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class UserController {
     public String findAll(Model model){
         List<User> users = userService.findAll();
         model.addAttribute(ss, users);
+        for(User e:users)
+            System.out.println(e.toString());
         return s+"-list";
     }
     @GetMapping(s+"-create")

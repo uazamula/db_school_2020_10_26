@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Grade;
+import com.example.demo.model.Pupil;
+import com.example.demo.model.Subject;
 import com.example.demo.service.GradeService;
+import com.example.demo.service.PupilService;
+import com.example.demo.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,24 +18,48 @@ import java.util.List;
 @Controller
 public class GradeController {
     private final GradeService gradeService;
+    private final SubjectService subjectService;
+    private final PupilService pupilService;
+    private Subject e;
 
     @Autowired
-    public GradeController(GradeService gradeService) {
+    public GradeController(GradeService gradeService, SubjectService subjectService, PupilService pupilService) {
         this.gradeService = gradeService;
+        this.subjectService = subjectService;
+        this.pupilService = pupilService;
     }
     @GetMapping("/grades")
-    public String findAll(Model model){
+    public String findAll(Model model)
+    {
         List<Grade> grades = gradeService.findAll();
         model.addAttribute("grades", grades);
+        for(Grade e:grades)
+            System.out.println(e.toString());
         return "grade-list";
     }
+
     @GetMapping("/grade-create")
-    public String createGradeForm(Grade grade){
+    public String createGradeFormNew(Grade grade, Model model, Subject subject, Pupil pupil){
+        List<Subject> subjects = subjectService.findAll();////////////////////////////////////////////
+        model.addAttribute("subjects", subjects);////////////////////////////////////
+        List<Pupil> pupils = pupilService.findAll();////////////////////////////////////////////
+        model.addAttribute("pupils", pupils);////////////////////////////////////
+        for(Subject e:subjects)
+            System.out.println(e.toString());
+
+        for(Pupil e:pupils)
+            System.out.println(e.toString());
+
         return "/grade-create";
     }
 
     @PostMapping("/grade-create")
-    public String createGrade(Grade grade){
+    public String createGrade(Grade grade, Model model, Subject subject){
+        List<Subject> subjects = subjectService.findAll();////////////////////////////////////////////
+        model.addAttribute("subjects", subjects);////////////////////////////////////
+        for(Subject e:subjects)
+            System.out.println(e.toString());
+        System.out.println(grade.toString());
         gradeService.saveGrade(grade);
         return "redirect:/grades";
     }
@@ -45,7 +73,7 @@ public class GradeController {
     @GetMapping("grade-update/{id}")
     public String updateGradeForm(@PathVariable("id") Long id, Model model){
         Grade grade = gradeService.findById(id);
-        model.addAttribute("grade",grade);
+        model.addAttribute("grade",grade);// "grade" hier != "grade" field in model
         return "grade-update";
     }
     @PostMapping("/grade-update")

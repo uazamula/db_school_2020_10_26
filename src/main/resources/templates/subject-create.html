@@ -6,12 +6,31 @@
 </head>
 <body>
     <form action="#" th:action="@{/subject-create}" th:object="${subject}" method="post"/>
-    <label for="subjectName">Subject</label>
+    <label for="subjectName">Subject:</label>
     <input type="text" id="subjectName" name="subjectName" th:value="*{subjectName}"  placeholder="Subject"/>
-    <label for="classId">Class(id)</label>
-    <input type="number" id="classId" name="classId" th:value="*{classId}"  placeholder="Class(id)"/>
-    <label for="teacherId">Teacher(id)</label>
-    <input type="number" id="teacherId" name="teacherId" th:value="*{teacherId}"  placeholder="Teacher(id)"/>
+    <br><br>
+    <label for="subjectName">Select class:</label>
+    <select id = "subject1" name = "classId"/>
+    <option value=""> -- </option>
+    <option  th:each="i:${classes}"
+             th:value="${i.id}"
+             th:text="${i.classInt}+${i.classChar}"
+    />
+    </select>
+    <br><br>
+    <!--label for="classId">Class(id)</label>
+    <input type="number" id="classId" name="classId" th:value="*{classId}"  placeholder="Class(id)"/-->
+    <label for="subjectName">Select teacher:</label>
+    <select id = "subject2" name = "teacherId"/>
+    <option disabled>add teacher</option>
+    <option  th:each="i:${teachers}"
+             th:value="${i.id}"
+             th:text="${i.lastName}+' '+${i.firstName}"
+    />
+    </select>
+    <br><br>
+    <!--label for="teacherId">Teacher(id)</label>
+    <input type="number" id="teacherId" name="teacherId" th:value="*{teacherId}"  placeholder="Teacher(id)"/-->
     <input type="submit" value="Create Subject"/>
     </form>
 </body>

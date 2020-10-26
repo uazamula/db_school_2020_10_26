@@ -6,17 +6,17 @@
 </head>
 <body>
 <form action="#" th:action="@{/grade-update}" th:object="${grade}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/>
     <label for="pupil">Pupil(id)</label>
     <input type="number" th:field="*{pupil}" id="pupil" placeholder="Pupil(id)">
     <br/>
     <label for="subject">Subject(id)</label>
     <input type="number" th:field="*{subject}" id="subject" placeholder="Subject(id)">
     <br/>
-    <label for="grade">Grade</label>
-    <input type="number" th:field="*{grade}" id="grade" placeholder="Grade">
+    <label for="gradePupil">Grade</label>
+    <input type="number" th:field="*{gradePupil}" id="gradePupil" placeholder="Grade">
+    <br/>
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
     <input type="submit" value="Update Grade">
 </form>

@@ -5,14 +5,34 @@
     <title>Grades</title>
 </head>
 <body>
-    <form action="#" th:action="@{/grade-create}" th:object="${grade}" method="post"/>
-    <label for="pupil">Pupil(id)</label>
-    <input type="number" id="pupil" name="pupil" th:value="*{pupil}"  placeholder="Pupil(id)"/>
-    <label for="subject">Subject(id)</label>
-    <input type="number" id="subject" name="subject" th:value="*{subject}"  placeholder="Subject(id)"/>
-    <label for="grade">Grade</label>
-    <input type="number" id="grade" name="grade" th:value="*{grade}"  placeholder="Grade"/>
-    <input type="submit" value="Add Grade"/>
-    </form>
+<form action="#" th:action="@{/grade-create}" th:object="${grade}" method="post"/>
+    <!--label for="pupil">Pupil(id)</label>
+    <input type="number" id="pupil" name="pupil" th:value="*{pupil}"  placeholder="Pupil(id)"/-->
+<select id = "grade1" name = "pupil"/>
+<option value=""> -- </option>
+<option  th:each="i:${pupils}"
+         th:value="${i.id}"
+         th:text="${i.lastName}+' '+${i.firstName}"
+         th:selected="(${i.id} == *{grade.pupil})"
+/>
+<option disabled>add pupil</option>
+</select>
+
+<select id = "grade2" name = "subject"/>
+<option value=""> -- </option>
+<option  th:each="i:${subjects}"
+         th:value="${i.id}"
+         th:text="${i.subjectName}+${i.classId}"
+         th:selected="(${i.id} == *{grade.subject})"
+/>
+<option disabled>add subject</option>
+</select>
+
+<!--label for="subject">Subject(id)</label>
+<input type="number" id="subject" name="subject" th:value="*{subject}"  placeholder="Subject(id)"/-->
+
+<label for="gradePupil">Grade</label>
+<input type="number" id="gradePupil" name="gradePupil" th:value="*{gradePupil}"  placeholder="Grade"/>
+<input type="submit" value="Add Grade"/>
 </body>
 </html>

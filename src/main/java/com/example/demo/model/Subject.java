@@ -22,4 +22,37 @@ public class Subject {
 
     @Column(name = "teacher_id")
     private  Long teacherId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public Long getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Long classId) {
+        this.classId = classId;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
+
 }

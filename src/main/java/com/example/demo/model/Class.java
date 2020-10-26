@@ -1,3 +1,4 @@
+// https://stackoverflow.com/questions/13154818/how-to-define-a-jpa-repository-query-with-a-join
 package com.example.demo.model;
 
 import lombok.Data;
@@ -19,6 +20,43 @@ public class Class {
     private char classChar;
     @Column(name = "teacher_id")
     private Long teacherId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getClassInt() {
+        return classInt;
+    }
+
+    public void setClassInt(int classInt) {
+        this.classInt = classInt;
+    }
+
+    public char getClassChar() {
+        return classChar;
+    }
+
+    public void setClassChar(char classChar) {
+        this.classChar = classChar;
+    }
+
+    public Long getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
+    }
+
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "aClass")
+//    private User users;
+
+
 
    /* public Class() {
     }

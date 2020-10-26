@@ -12,6 +12,7 @@
         <table>
             <thead>
             <tr>
+                <th>No</th>
                 <th>Id</th>
                 <th>Subject</th>
                 <th>Class(id)</th>
@@ -19,7 +20,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="subject : ${subjects}">
+            <tr th:each="subject,iter : ${subjects}">
+                <td th:text="${iter.count}"></td>
                 <td th:text="${subject.id}"></td>
                 <td th:text="${subject.subjectName}"></td>
                 <td th:text="${subject.classId}"></td>

@@ -15,15 +15,20 @@
                 <th>Pupil(id)</th>
                 <th>Subject(id)</th>
                 <th>Grade</th>
+                <th>id</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="grade : ${grades}">
-                <td th:text="${grade.pupil}"></td>
-                <td th:text="${grade.subject}"></td>
-                <td th:text="${grade.grade}"></td>
-                <td><a th:href="@{grade-update/{id}(id=${grade.id})}">Edit</a></td>
-                <td><a th:href="@{grade-delete/{id}(id=${grade.id})}">Delete</a></td>
+            <tr th:each="i,it : ${grades}">
+                <td th:text="${i.pupil}"></td>
+                <td th:text="${i.subject}"></td>
+                <td th:text="${i.gradePupil}"></td>
+                <td th:text="${i.id}"></td>
+                <td><a th:href="@{grade-update/{id}(id=${i.id})}">Edit</a></td>
+                <td><a th:href="@{grade-delete/{id}(id=${i.id})}">Delete</a></td>
+            </tr>
+            <tr th:each="i : ${subjects}">
+                <td th:text="${i.subjectName}"></td>
             </tr>
             </tbody>
         </table>

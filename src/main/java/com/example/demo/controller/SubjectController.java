@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Class;
 import com.example.demo.model.Subject;
+import com.example.demo.model.User;
+import com.example.demo.service.ClassService;
 import com.example.demo.service.SubjectService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +18,13 @@ import java.util.List;
 @Controller
 public class SubjectController {
     private final SubjectService subjectService;
-
+    private final ClassService classService;
+    private final UserService userService;
     @Autowired
-    public SubjectController(SubjectService subjectService) {
+    public SubjectController(SubjectService subjectService, ClassService classService, UserService userService) {
         this.subjectService = subjectService;
+        this.classService = classService;
+        this.userService = userService;
     }
     @GetMapping("/subjects")
     public String findAll(Model model){
@@ -26,7 +33,11 @@ public class SubjectController {
         return "subject-list";
     }
     @GetMapping("/subject-create")
-    public String createSubjectForm(Subject subject){
+    public String createSubjectForm(Subject subject, Model model){
+        List<Class> classes = classService.findAll();/////////////////////////
+        model.addAttribute("classes", classes);////////////////
+        List<User> users = userService.findAll();////////////////////////////////////////////
+        model.addAttribute("teachers", users);////////////////////////////////////
         return "/subject-create";
     }
 

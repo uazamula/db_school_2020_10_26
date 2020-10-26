@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Class;
 import com.example.demo.model.Pupil;
+import com.example.demo.service.ClassService;
 import com.example.demo.service.PupilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +16,15 @@ import java.util.List;
 @Controller
 public class PupilController {
     private final PupilService pupilService;
+    private final ClassService classService;
     private final String s="pupil";
     private final String ss="pupils";
     private final String IDS="id";
 
     @Autowired
-    public PupilController(PupilService pupilService) {
+    public PupilController(PupilService pupilService, ClassService classService) {
         this.pupilService = pupilService;
+        this.classService = classService;
     }
    // @GetMapping("/pupils")
     @GetMapping(ss)
@@ -30,7 +34,9 @@ public class PupilController {
         return s+"-list";
     }
     @GetMapping(s+"-create")
-    public String createPupilForm(Pupil pupil){
+    public String createPupilForm(Pupil pupil, Model model){
+        List<Class> classes = classService.findAll();/////////////////////////
+        model.addAttribute("classes", classes);////////////////
         return s+"-create";
     }
 

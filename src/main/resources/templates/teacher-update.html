@@ -6,9 +6,11 @@
 </head>
 <body>
 <form action="#" th:action="@{/teacher-update}" th:object="${teacher}" method="post">
+
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
+
     <label for="lastName">Last name</label>
     <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
     <br/>

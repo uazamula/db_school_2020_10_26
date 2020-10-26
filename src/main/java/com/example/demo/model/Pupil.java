@@ -18,4 +18,36 @@ public class Pupil {
     private String firstName;
     @Column(name = "class_p")
     private Long classP;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Long getClassP() {
+        return classP;
+    }
+
+    public void setClassP(Long classP) {
+        this.classP = classP;
+    }
 }

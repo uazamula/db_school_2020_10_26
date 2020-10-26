@@ -2,16 +2,27 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add pupil</title>
 </head>
 <body>
 <form action="#" th:action="@{/pupil-create}" th:object="${pupil}" method="post"/>
     <label for="lastName">Last name</label>
     <input type="text" id="lastName" name="lastName" th:value="*{lastName}"  placeholder="Last Name"/>
+    <br><br>
     <label for="firstName">First name</label>
     <input type="text" id="firstName" name="firstName" th:value="*{firstName}"  placeholder="First Name"/>
-    <label for="classP">Class(id)</label>
-    <input type="number" id="classP" name="classP" th:value="*{classP}"  placeholder="Class(id)"/>
+    <br><br>
+    <label>Select class:</label>
+    <select id = "subject1" name = "classP"/>
+    <option value=""> -- </option>
+    <option  th:each="i:${classes}"
+             th:value="${i.id}"
+             th:text="${i.classInt}+${i.classChar}"
+    />
+    </select>
+    <br><br>
+    <!--label for="classP">Class(id)</label>
+    <input type="number" id="classP" name="classP" th:value="*{classP}"  placeholder="Class(id)"/-->
     <input type="submit" value="Create Pupil"/>
 </form>
 </body>

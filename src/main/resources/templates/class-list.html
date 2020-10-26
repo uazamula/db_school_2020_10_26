@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Classes</title>
+    <style type="text/css">
+    Table{
+    width: 300px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   TD, TH {
+    padding: 5px; /* Поля вокруг содержимого cells of таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+   TH {
+    background: #b0e0e6; /* Цвет фона */
+   }
+   </style>
 </head>
 <body>
 <div th:switch="${classes}">
@@ -12,20 +25,20 @@
         <table>
             <thead>
             <tr>
-                <th>Id</th>
+                <th>No</th>
                 <th>Class</th>
-                <th>Letter</th>
                 <th>Class teacher(id)</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="aClass : ${classes}">
-                <td th:text="${aClass.id}"></td>
-                <td th:text="${aClass.classInt}"></td>
-                <td th:text="${aClass.classChar}"></td>
-                <td th:text="${aClass.teacherId}"></td>
-                <td><a th:href="@{class-update/{id}(id=${aClass.id})}">Edit</a></td>
-                <td><a th:href="@{class-delete/{id}(id=${aClass.id})}">Delete</a></td>
+            <tr th:each="i, it : ${classes}">
+                <td th:text="${it.count}"></td>
+                <td th:text="${i.classInt} + ${i.classChar}"></td>
+                <td th:text="${i.teacher}"></td>
+                <td><a th:href="@{class-update/{id}(id=${i.id})}">Edit</a></td>
+                <td><a th:href="@{class-delete/{id}(id=${i.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>

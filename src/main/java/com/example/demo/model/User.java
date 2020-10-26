@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,8 +19,35 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
-    private String lastName;
+    public String lastName;
 
-//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    //    @OneToOne()
+//    //@JoinColumn(name = "teacher_id")
+//    @JoinColumn(name = "id")
 //    private Class aClass;
+
+
 }

@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:switch="${teachers}">
-    <h2 th:case="null">No users found!</h2>
+    <h2 th:case="null">No teachers found!</h2>
     <div th:case="*">
         <h2>Teachers</h2>
         <table>
@@ -18,12 +18,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="teacher : ${teachers}">
-                <td th:text="${teacher.id}"></td>
-                <td th:text="${teacher.lastName}"></td>
-                <td th:text="${teacher.firstName}"></td>
-                <td><a th:href="@{teacher-update/{id}(id=${teacher.id})}">Edit</a></td>
-                <td><a th:href="@{teacher-delete/{id}(id=${teacher.id})}">Delete</a></td>
+            <tr th:each="i : ${teachers}">
+
+                <td th:text="${i.id}"></td>
+
+                <td th:text="${i.lastName}"></td>
+                <td th:text="${i.firstName}"></td>
+                <td><a th:href="@{teacher-update/{id}(id=${i.id})}">Edit</a></td>
+                <td><a th:href="@{teacher-delete/{id}(id=${i.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
