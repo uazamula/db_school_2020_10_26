@@ -37,14 +37,14 @@ public class ClassController {
         for(Class eClass:classes) {
             int classInt = eClass.getClassInt();
             char classChar = eClass.getClassChar();
-            String s =" No teacher has been assigned yet";
+            String TeachersFullName ="--Не обрано--";
             if (eClass.getTeacherId()==null)
-                System.out.println(classInt + "" + classChar + s);
+                System.out.println(classInt + "" + classChar + TeachersFullName);
             else{
                 for (User eUser : users) {
                     if (eClass.getTeacherId()== eUser.getId()) {
-                        s = eUser.getLastName() + " " + eUser.getFirstName();
-                        System.out.println(classInt + "" + classChar + " " + s);
+                        TeachersFullName = eUser.getLastName() + " " + eUser.getFirstName();
+                        System.out.println(classInt + "" + classChar + " " + TeachersFullName);
                     }
                 }
             }
@@ -52,9 +52,22 @@ public class ClassController {
                     eClass.getId(),
                     eClass.getClassInt(),
                     eClass.getClassChar(),
-                    s);
+                    TeachersFullName);
             classesNew.add(classNew);
         }
+        /*
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        List<Object[]> results = em.createQuery("SELECT p.firstName, p.lastName, n.phoneNumber FROM Person p, PhoneBookEntry n WHERE p.firstName = n.firstName AND p.lastName = n.lastName").getResultList();
+
+        for (Object[] result : results) {
+            log.info(result[0] + " " + result[1] + " - " + result[2]);
+        }
+
+        em.getTransaction().commit();
+        em.close();
+         */
         model.addAttribute("classes", classesNew);
         return "class-list";
     }
@@ -83,6 +96,8 @@ public class ClassController {
     public String updateClassForm(@PathVariable("id") Long id, Model model){
         Class aClass = classService.findById(id);
         model.addAttribute("aClass", aClass);
+        List<User> users = userService.findAll();////////////////////////////////////////////
+        model.addAttribute("teachers", users);////////////////////////////////////
         return "class-update";
     }
 
