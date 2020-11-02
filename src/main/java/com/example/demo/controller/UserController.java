@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -29,6 +30,9 @@ public class UserController {
     @GetMapping(ss)
     public String findAll(Model model){
         List<User> users = userService.findAll();
+
+        Collections.sort(users);
+
         model.addAttribute(ss, users);
         for(User e:users)
             System.out.println(e.toString());

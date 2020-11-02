@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ClassController {
@@ -42,32 +40,46 @@ public class ClassController {
         t1=LocalDateTime.now();
         sec1=t1.getNano();
         System.out.println("time begin: " + t1 + "   nanosec:" + sec1 );
+
+//        Map<Long,String> mapTeacher = new HashMap<>();
+//        for (User eUser : users)
+//            mapTeacher.put(eUser.getId(),
+//                    eUser.getLastName() + " " + eUser.getFirstName());
+
+
         for(Class eClass:classes) {
             int classInt = eClass.getClassInt();
             char classChar = eClass.getClassChar();
-            String TeachersFullName ="--Не обрано--";
+            String teachersFullName ="--Не обрано--";
             if (eClass.getTeacherId()==null)
-                System.out.println(classInt + "" + classChar + TeachersFullName);
+                System.out.println(classInt + "" + classChar + teachersFullName);
             else{
+                //teachersFullName = mapTeacher.get(eClass.getTeacherId());
+
                 for (User eUser : users) {
                     if (eClass.getTeacherId()== eUser.getId()) {
-                        TeachersFullName = eUser.getLastName() + " " + eUser.getFirstName();
-                        System.out.println(classInt + "" + classChar + " " + TeachersFullName);
+                        teachersFullName = eUser.getLastName() + " " + eUser.getFirstName();
+                        System.out.println(classInt + "" + classChar + " " + teachersFullName);
                     }
                 }
+
             }
             ClassNew classNew = new ClassNew(
                     eClass.getId(),
-                    eClass.getClassInt(),
-                    eClass.getClassChar(),
-                    TeachersFullName);
+                    classInt,
+                    classChar,
+                    teachersFullName);
             classesNew.add(classNew);
         }
-        Collections.sort(classesNew);
+
+
         t2=LocalDateTime.now();
         sec2=t2.getNano();
         System.out.println("time end: " + t2 + "   nanosec:" + sec2 );
         System.out.println("duration(seconds): " + (sec2 - sec1)/1e+9 );
+
+        Collections.sort(classesNew);
+
        /* EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 

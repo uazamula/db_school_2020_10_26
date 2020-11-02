@@ -12,14 +12,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="users")
-public class User {
+public class User implements Comparable<User>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
-    public String lastName;
+    private String lastName;
+
+    @Override    // This method doesn't work properly, e.g.: 10a, 11a, 11b, 2a, 4a, 6a
+    public int compareTo(User other) {
+        int i = this.getLastName().compareTo(other.getLastName());
+        if (i==0) return this.getFirstName().compareTo(other.getFirstName());
+        else
+        return i;
+    }
 
     public Long getId() {
         return id;

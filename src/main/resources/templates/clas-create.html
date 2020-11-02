@@ -8,11 +8,13 @@
 <form action="#" h:action="@{/clas-create}" h:object="${class_}" method="post">
     <label for="classInt">Input a class (integer value):</label>
     <br>
-    <input type="number" id="classInt" name = "classInt" h:value="*{classInt}"  placeholder="Class"/>
+    <input type="number" min="1" max="11" step="1"
+           id="classInt" name = "classInt" h:value="*{classInt}"  placeholder="Class"/>
     <br><br>
     <label for="classChar">Input a letter for the class:</label>
     <br>
-    <input type="text" id="classChar" name="classChar" h:value="*{classChar}"  placeholder="Letter"/>
+    <input type="text" required pattern = "[абвгде]"
+           id="classChar" name="classChar" h:value="*{classChar}"  placeholder="Letter"/>
     <br><br>
     <label>Select a class teacher:</label>
     <br>
