@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -34,6 +37,11 @@ public class ClassController {
 ///////////////////////////////////////////////////////////////////////////////////////
         List<ClassNew> classesNew = new ArrayList<>();
 /////////////////////////////////////////////////////////////////////////////////////////////
+        LocalDateTime t1,t2;
+        int sec1,sec2,diff;
+        t1=LocalDateTime.now();
+        sec1=t1.getNano();
+        System.out.println("time begin: " + t1 + "   nanosec:" + sec1 );
         for(Class eClass:classes) {
             int classInt = eClass.getClassInt();
             char classChar = eClass.getClassChar();
@@ -55,8 +63,12 @@ public class ClassController {
                     TeachersFullName);
             classesNew.add(classNew);
         }
-        /*
-        EntityManager em = emf.createEntityManager();
+        Collections.sort(classesNew);
+        t2=LocalDateTime.now();
+        sec2=t2.getNano();
+        System.out.println("time end: " + t2 + "   nanosec:" + sec2 );
+        System.out.println("duration(seconds): " + (sec2 - sec1)/1e+9 );
+       /* EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
         List<Object[]> results = em.createQuery("SELECT p.firstName, p.lastName, n.phoneNumber FROM Person p, PhoneBookEntry n WHERE p.firstName = n.firstName AND p.lastName = n.lastName").getResultList();
@@ -67,7 +79,7 @@ public class ClassController {
 
         em.getTransaction().commit();
         em.close();
-         */
+        */
         model.addAttribute("classes", classesNew);
         return "class-list";
     }
