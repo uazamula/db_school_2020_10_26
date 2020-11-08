@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Subject-create</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
     <form action="#" th:action="@{/subject-create}" th:object="${subject}" method="post"/>
     <label for="subjectName">Subject:</label>
-    <input type="text" id="subjectName" name="subjectName" th:value="*{subjectName}"  placeholder="Subject"/>
+    <input type="text" id="subjectName" name="subjectName" th:value="*{subjectName}"  placeholder="Subject"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"/>
     <br><br>
     <label for="subjectName">Select class:</label>
     <select id = "subject1" name = "classId"/>
@@ -22,7 +27,7 @@
     <input type="number" id="classId" name="classId" th:value="*{classId}"  placeholder="Class(id)"/-->
     <label for="subjectName">Select teacher:</label>
     <select id = "subject2" name = "teacherId"/>
-    <option disabled>add teacher</option>
+    <option value=""> -- </option>
     <option  th:each="i:${teachers}"
              th:value="${i.id}"
              th:text="${i.lastName}+' '+${i.firstName}"

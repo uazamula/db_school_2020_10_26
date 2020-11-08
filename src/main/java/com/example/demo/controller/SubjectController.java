@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SubjectController {
@@ -29,15 +32,24 @@ public class SubjectController {
     @GetMapping("/subjects")
     public String findAll(Model model){
         List<Subject> subjects = subjectService.findAll();
+        Collections.sort(subjects);
         model.addAttribute("subjects", subjects);
+        List<Class> classes = classService.findAll();/////////////////////////
+        model.addAttribute("classes", classes);////////////////
+        List<User> users = userService.findAll();////////////////////////////////////////////
+        model.addAttribute("teachers", users);////////////////////////////////////
         return "subject-list";
     }
     @GetMapping("/subject-create")
     public String createSubjectForm(Subject subject, Model model){
         List<Class> classes = classService.findAll();/////////////////////////
+        Collections.sort(classes);
         model.addAttribute("classes", classes);////////////////
         List<User> users = userService.findAll();////////////////////////////////////////////
+        Collections.sort(users);
         model.addAttribute("teachers", users);////////////////////////////////////
+
+
         return "/subject-create";
     }
 
@@ -57,6 +69,12 @@ public class SubjectController {
     public String updateSubjectForm(@PathVariable("id") Long id, Model model){//!!!!!!! id_s
         Subject subject = subjectService.findById(id);
         model.addAttribute("subject", subject);
+        List<Class> classes = classService.findAll();/////////////////////////
+        Collections.sort(classes);
+        model.addAttribute("classes", classes);////////////////
+        List<User> users = userService.findAll();////////////////////////////////////////////
+        Collections.sort(users);
+        model.addAttribute("teachers", users);////////////////////////////////////
         return "subject-update";
     }
     @PostMapping("/subject-update")

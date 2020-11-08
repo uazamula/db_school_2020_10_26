@@ -5,36 +5,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Grades</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/grade-create}" th:object="${grade}" method="post"/>
-    <!--label for="pupil">Pupil(id)</label>
-    <input type="number" id="pupil" name="pupil" th:value="*{pupil}"  placeholder="Pupil(id)"/-->
-<select id = "grade1" name = "pupil"/>
-<option value=""> -- </option>
+    <!--label for="className">Class: </label-->
+    <!--input type="number" id="pupil" name="pupil" th:value="*{pupil}"  placeholder="Pupil(id)"/-->
+<!--select id = "className" name = "class_"/>
+<option disabled>add pupil</option>
+<option  th:each="i:${classes}"
+         th:value="${i.id}"
+         th:text="${i.classInt}+${i.classChar}"
+/>
+</select>
+<br--><br>
+<label for="pupilName">Pupil: </label>
+<select id = "pupilName" name = "pupil"/>
+<option disabled>add pupil</option>
 <option  th:each="i:${pupils}"
          th:value="${i.id}"
          th:text="${i.lastName}+' '+${i.firstName}"
          th:selected="(${i.id} == *{grade.pupil})"
 />
-<option disabled>add pupil</option>
 </select>
-
-<select id = "grade2" name = "subject"/>
-<option value=""> -- </option>
-<option  th:each="i:${subjects}"
-         th:value="${i.id}"
-         th:text="${i.subjectName}+${i.classId}"
-         th:selected="(${i.id} == *{grade.subject})"
-/>
+<br><br>
+<label for="subjectName">Subject: </label>
+<select id = "subjectName" name = "subject"/>
 <option disabled>add subject</option>
+<option  th:each="i:${subjectNewList}"
+         th:value="${i.id}"
+         th:text="${i.subjectName}
+                + ' (' + ${i.className} + ' class)'"
+         th:selected="(${i.id} == *{grade.subject})"></option>
 </select>
+<!--option disabled>add subject</option>
+<option  th:each="i:${subjectNewList}"
+         th:value="${i.id}"
+         th:text="${i.subjectName}
+                + ' (' + ${i.classInt} + ${i.classChar} + ' class)'"
+         th:selected="(${i.id} == *{grade.subject})"></option>
+</select>
+<br><br-->
 
 <!--label for="subject">Subject(id)</label>
 <input type="number" id="subject" name="subject" th:value="*{subject}"  placeholder="Subject(id)"/-->
+<br><br>
+<label for="gradePupil">Grade: </label>
+<input type="number" id="gradePupil" name="gradePupil" th:value="*{gradePupil}"  placeholder="Grade"
+       min="0" max="100" step="1"/>
+<br><br>
 
-<label for="gradePupil">Grade</label>
-<input type="number" id="gradePupil" name="gradePupil" th:value="*{gradePupil}"  placeholder="Grade"/>
 <input type="submit" value="Add Grade"/>
 </body>
 </html>

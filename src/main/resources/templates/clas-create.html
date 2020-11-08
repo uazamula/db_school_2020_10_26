@@ -2,7 +2,11 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Classes</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" h:action="@{/clas-create}" h:object="${class_}" method="post">
@@ -25,6 +29,15 @@
              th:text="${i.lastName}+' '+${i.firstName}"
     />
     </select>
+    <!--input list="teachers" name="teacherId" />
+    <datalist id = "teachers" name = "teacherId">
+    <option value="">no teacher</option>
+    <option  th:each="i:${teachers}"
+             th:value="${i.id}"
+             th:text="${i.lastName}+' '+${i.firstName}"
+    >text</option>
+    </datalist-->
+
     <br><br>
     <!--input type="number" id="teacherId" name="teacherId" h:value="*{teacherId}"  placeholder="Teacher(id)"/-->
     <input type="submit" value="Create Class"/>

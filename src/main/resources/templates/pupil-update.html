@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/pupil-update}" th:object="${pupil}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <!--label for="id">ID</label-->
+    <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
     <label for="lastName">Last name</label>
-    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last name">
-    <br/>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+    <br/><br/>
     <label for="firstName">First name</label>
-    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First name">
-    <br/>
-    <label for="classP">Class(id)</label>
-    <input type="number" th:field="*{classP}" id="classP" placeholder="Class(id)">
-    <br/>
+    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+    <br/><br/>
+    <label>Select class:</label>
+    <select id = "subject1" name = "classP"/>
+    <option value=""> -- </option>
+    <option  th:each="i:${classes}"
+             th:value="${i.id}"
+             th:text="${i.classInt}+${i.classChar}"
+    />
+    </select>
+    <br/><br/>
     <input type="submit" value="Update Pupil">
 </form>
 </body>

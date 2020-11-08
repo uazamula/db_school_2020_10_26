@@ -3,33 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Pupils</title>
+    <style type="text/css">
+    Table{
+    width: 300px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   TD, TH {
+    padding: 5px; /* Поля вокруг содержимого cells of таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+   TH {
+    background: #b0e0e6; /* Цвет фона */
+   }
+   </style>
 </head>
 <body>
 <div th:switch="${pupils}">
     <h2 th:case="null">No pupils found!</h2>
     <div th:case="*">
         <h2>Pupils</h2>
-        <table>
+        <table id="myTable2">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Last name</th>
-                <th>First name</th>
-                <th>Class(id)</th>
+                <th onclick="sortTable(0)">No</th>
+                <th onclick="sortTable(1)">Last name</th>
+                <th onclick="sortTable(2)">First name</th>
+                <th onclick="sortTable(3)">Class</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="pupil : ${pupils}">
-                <td th:text="${pupil.id}"></td>
+            <tr th:each="pupil, it : ${pupils}">
+                <td th:text="${it.count}"></td>
                 <td th:text="${pupil.lastName}"></td>
                 <td th:text="${pupil.firstName}"></td>
-                <td th:text="${pupil.classP}"></td>
+
+
+                <div th:if="${pupil.classP}==null">
+                    <td text=""></td>
+                </div>
+                <div th:each="cl : ${classes}" th:with="isEqual=${pupil.classP}==${cl.id}">
+
+                    <div th:if="${isEqual}">
+                        <div th:if="${cl.classInt}>=10">
+                            <td th:text="${cl.classInt} + ${cl.classChar}"></td>
+                        </div>
+                        <div th:if="${cl.classInt}<10">
+                            <td th:text="' ' + ${cl.classInt} + ${cl.classChar}"></td>
+                        </div>
+                    </div>
+                </div>
+
                 <td><a th:href="@{pupil-update/{id}(id=${pupil.id})}">Edit</a></td>
                 <td><a th:href="@{pupil-delete/{id}(id=${pupil.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
+        <script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable2");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
     </div>
+
     <p><a href="/pupil-create">Create pupil</a></p>
     <h3>
         <p><a href="/teachers">Teachers</a></p>

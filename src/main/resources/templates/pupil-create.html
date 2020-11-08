@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Add pupil</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/pupil-create}" th:object="${pupil}" method="post"/>
     <label for="lastName">Last name</label>
-    <input type="text" id="lastName" name="lastName" th:value="*{lastName}"  placeholder="Last Name"/>
+    <input type="text" id="lastName" name="lastName" th:value="*{lastName}"  placeholder="Last Name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"/>
     <br><br>
     <label for="firstName">First name</label>
-    <input type="text" id="firstName" name="firstName" th:value="*{firstName}"  placeholder="First Name"/>
+    <input type="text" id="firstName" name="firstName" th:value="*{firstName}"  placeholder="First Name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"/>
     <br><br>
     <label>Select class:</label>
     <select id = "subject1" name = "classP"/>

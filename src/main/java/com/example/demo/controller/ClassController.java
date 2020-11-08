@@ -82,15 +82,9 @@ public class ClassController {
 
        /* EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-
         List<Object[]> results = em.createQuery("SELECT p.firstName, p.lastName, n.phoneNumber FROM Person p, PhoneBookEntry n WHERE p.firstName = n.firstName AND p.lastName = n.lastName").getResultList();
-
-        for (Object[] result : results) {
-            log.info(result[0] + " " + result[1] + " - " + result[2]);
-        }
-
-        em.getTransaction().commit();
-        em.close();
+        for (Object[] result : results) {log.info(result[0] + " " + result[1] + " - " + result[2]);   }
+        em.getTransaction().commit();       em.close();
         */
         model.addAttribute("classes", classesNew);
         return "class-list";
@@ -98,6 +92,7 @@ public class ClassController {
     @GetMapping("/clas-create")
     public  String createClassForm(Class class_,Model model, User user){
         List<User> users = userService.findAll();////////////////////////////////////////////
+        Collections.sort(users);
         model.addAttribute("teachers", users);////////////////////////////////////
         for(User e:users)
             System.out.println(e.getLastName() + e.getFirstName());
@@ -121,6 +116,7 @@ public class ClassController {
         Class aClass = classService.findById(id);
         model.addAttribute("aClass", aClass);
         List<User> users = userService.findAll();////////////////////////////////////////////
+        Collections.sort(users);
         model.addAttribute("teachers", users);////////////////////////////////////
         return "class-update";
     }

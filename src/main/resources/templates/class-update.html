@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Class</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/class-update}" th:object="${aClass}" method="post">
-    <label for="id">ID</label>
+    <!--label for="id">ID</label-->
 
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/><br/>
+    <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
     <label for="classInt">Edit the class (integer value):</label>
     <br>
-    <input type="text" th:field="*{classInt}" id="classInt" placeholder="Class">
+    <input type="number" th:field="*{classInt}" id="classInt" placeholder="Class"
+           min="1" max="11" step="1">
     <br/><br/>
     <label for="classChar">Edit the letter for the class:</label>
     <br>
-    <input type="text" th:field="*{classChar}" id="classChar" placeholder="Letter">
+    <input type="text" th:field="*{classChar}" id="classChar" placeholder="Letter"
+           required pattern = "[абвгде]">
     <br/><br/>
     <label>Select/change a class teacher:</label>
     <br>

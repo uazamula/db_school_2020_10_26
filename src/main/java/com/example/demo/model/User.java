@@ -21,7 +21,7 @@ public class User implements Comparable<User>{
     @Column(name = "last_name")
     private String lastName;
 
-    @Override    // This method doesn't work properly, e.g.: 10a, 11a, 11b, 2a, 4a, 6a
+    @Override
     public int compareTo(User other) {
         int i = this.getLastName().compareTo(other.getLastName());
         if (i==0) return this.getFirstName().compareTo(other.getFirstName());

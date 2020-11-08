@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "subjects")
-public class Subject {
+public class Subject implements Comparable<Subject> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,12 @@ public class Subject {
 
     @Column(name = "teacher_id")
     private  Long teacherId;
+
+    @Override
+    public int compareTo(Subject other) {
+        return this.getSubjectName().compareTo(other.getSubjectName());
+
+    }
 
     public Long getId() {
         return id;

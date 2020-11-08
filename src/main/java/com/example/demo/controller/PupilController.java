@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -30,12 +31,16 @@ public class PupilController {
     @GetMapping(ss)
     public String findAll(Model model){
         List<Pupil> pupils = pupilService.findAll();
+        Collections.sort(pupils);
         model.addAttribute(ss, pupils);
+        List<Class> classes = classService.findAll();/////////////////////////
+        model.addAttribute("classes", classes);////////////////
         return s+"-list";
     }
     @GetMapping(s+"-create")
     public String createPupilForm(Pupil pupil, Model model){
         List<Class> classes = classService.findAll();/////////////////////////
+        Collections.sort(classes);
         model.addAttribute("classes", classes);////////////////
         return s+"-create";
     }
@@ -56,6 +61,9 @@ public class PupilController {
     public String updatePupilForm(@PathVariable(IDS) Long id, Model model){
         Pupil pupil = pupilService.findById(id);
         model.addAttribute(s, pupil);
+        List<Class> classes = classService.findAll();/////////////////////////
+        Collections.sort(classes);
+        model.addAttribute("classes", classes);////////////////
         return s+"-update";
     }
     @PostMapping(s+"-update")

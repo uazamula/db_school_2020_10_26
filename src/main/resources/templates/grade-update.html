@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Grades</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/grade-update}" th:object="${grade}" method="post">
-    <label for="pupil">Pupil(id)</label>
-    <input type="number" th:field="*{pupil}" id="pupil" placeholder="Pupil(id)">
     <br/>
-    <label for="subject">Subject(id)</label>
-    <input type="number" th:field="*{subject}" id="subject" placeholder="Subject(id)">
-    <br/>
+    <!--label for="pupil">Pupil(id)</label-->
+    <input hidden type="number" th:field="*{pupil}" id="pupil" placeholder="Pupil(id)">
+
+    <!--label for="subject">Subject(id)</label-->
+    <input hidden type="number" th:field="*{subject}" id="subject" placeholder="Subject(id)">
+
     <label for="gradePupil">Grade</label>
-    <input type="number" th:field="*{gradePupil}" id="gradePupil" placeholder="Grade">
-    <br/>
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/>
+    <input type="number" th:field="*{gradePupil}" id="gradePupil" placeholder="Grade"
+           min="0" max="100" step="1">
+    <!--br/><br/>
+    <label for="id">ID</label-->
+    <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/><br/>
     <input type="submit" value="Update Grade">
 </form>
 </body>

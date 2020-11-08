@@ -3,20 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Teacher</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/teacher-update}" th:object="${teacher}" method="post">
 
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/>
+    <!--label for="id">ID</label-->
+    <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br>
 
     <label for="lastName">Last name</label>
-    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
-    <br/>
+    <input type="text"
+           th:field="*{lastName}"
+           id="lastName"
+           placeholder="Last Name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+    <br><br>
     <label for="firstName">First name</label>
-    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
-    <br/>
+    <input type="text"
+           th:field="*{firstName}"
+           id="firstName"
+           placeholder="First Name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+    <br><br>
     <input type="submit" value="Update Teacher">
 </form>
 </body>

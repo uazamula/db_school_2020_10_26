@@ -3,14 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Teacher</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
+
 </head>
 <body>
 <form action="#" h:action="@{/teacher-create}" h:object="${teacher}" method="post">
     <label for="lastName">Last name</label>
-    <input type="text" id="lastName" name="lastName" h:value="*{lastName}"  placeholder="Last Name">
+    <input type="text"
+           id="lastName"
+           name="lastName"
+           h:value="*{lastName}"
+           placeholder="Last Name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"
+           >
+    <br><br>
     <label for="firstName">First name</label>
-    <input type="text" id="firstName" name="firstName" h:value="*{firstName}"  placeholder="First Name">
-    <input type="submit" value="Create Teacher">
+    <input type="text"
+           id="firstName"
+           name="firstName"
+           h:value="*{firstName}"
+           placeholder="First Name"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+    <br><br>
+    <input type="submit" value="Add Teacher">
 </form>
 </body>
 </html>

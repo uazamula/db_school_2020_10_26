@@ -1,6 +1,7 @@
 // https://stackoverflow.com/questions/13154818/how-to-define-a-jpa-repository-query-with-a-join
 package com.example.demo.model;
 
+import com.example.demo.controller.ClassNew;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name="classes")
-public class Class {
+public class Class implements Comparable<Class>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id_c")
@@ -20,6 +21,27 @@ public class Class {
     private char classChar;
     @Column(name = "teacher_id")
     private Long teacherId;
+
+    //private String teacherName;
+//    public String getTeacherName() {return teacherName;}
+//    public void setTeacherName(User user) {
+//        if (this.getTeacherId()==user.getId())
+//        this.teacherName = user.getLastName() + " " + user.getFirstName();
+//    }
+
+    @Override
+    public int compareTo(Class other) {
+        int i=0;
+        if(classInt < other.classInt)
+            i=-1;
+        else
+        if (classInt > other.classInt)
+            i = 1;
+        else
+            if (classChar < other.classChar)
+                i = -1;
+        return i;
+    }
 
     public Long getId() {
         return id;

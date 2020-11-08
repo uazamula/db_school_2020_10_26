@@ -3,21 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Subjects</title>
+    <style>
+        input:invalid {border-color: red;}
+        input:valid {border-color: green;}
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/subject-update}" th:object="${subject}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <!--label for="id">ID</label-->
+    <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
     <label for="subjectName">Subject</label>
-    <input type="text" th:field="*{subjectName}" id="subjectName" placeholder="Subject">
-    <br/>
-    <label for="classId">Class(id)</label>
-    <input type="number" th:field="*{classId}" id="classId" placeholder="Class(id)">
-    <br/>
-    <label for="teacherId">Teacher(id)</label>
-    <input type="number" th:field="*{teacherId}" id="teacherId" placeholder="Teacher(id)">
-    <br/>
+    <input type="text" th:field="*{subjectName}" id="subjectName" placeholder="Subject"
+           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+
+    <br/> <br/>
+    <!--label for="classId">Class(id)</label>
+    <input type="number" th:field="*{classId}" id="classId" placeholder="Class(id)"-->
+    <label for="className">Select class:</label>
+    <select id = "className" name = "classId"/>
+    <option value=""> -- </option>
+    <option  th:each="i:${classes}"
+             th:value="${i.id}"
+             th:text="${i.classInt}+${i.classChar}"
+    />
+    </select>
+    <br/> <br/>
+    <!--label for="teacherId">Teacher(id)</label>
+    <input type="number" th:field="*{teacherId}" id="teacherId" placeholder="Teacher(id)"-->
+    <label for="teacherName">Select teacher:</label>
+    <select id = "teacherName" name = "teacherId"/>
+    <option value=""> -- </option>
+    <option  th:each="i:${teachers}"
+             th:value="${i.id}"
+             th:text="${i.lastName}+' '+${i.firstName}"
+    />
+    </select>
+    <br/> <br/>
     <input type="submit" value="Update Subject">
 </form>
 </body>

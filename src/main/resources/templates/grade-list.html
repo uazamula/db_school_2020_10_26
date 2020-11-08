@@ -1,37 +1,164 @@
+<!--https://www.w3schools.com/howto/howto_js_filter_dropdown.asp-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Grades</title>
+    <style type="text/css">
+    Table{
+    width: auto; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+   }
+   TD, TH {
+    padding: 5px; /* Поля вокруг содержимого cells of таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+   TH {
+    background: #b0e0e6; /* Цвет фона */
+   }
+   </style>
 </head>
 <body>
 <div th:switch="${grades}">
     <h2 th:case="null">No grades found!</h2>
     <div th:case="*">
         <h2>Grades</h2>
-        <table>
+        <table id="myTable2">
             <thead>
             <tr>
-                <th>Pupil(id)</th>
-                <th>Subject(id)</th>
-                <th>Grade</th>
-                <th>id</th>
+                <th onclick="sortTable(0)">No</th>
+                <th onclick="sortTable(1)">Class</th>
+                <th onclick="sortTable(2)">Pupil</th>
+                <th onclick="sortTable(3)">Subject</th>
+                <th onclick="sortTable(4)">Grade</th>
+                <!--th>id</th-->
+                <th onclick="sortTable(5)">Edit</th>
+                <th onclick="sortTable(6)">Delete</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="i,it : ${grades}">
-                <td th:text="${i.pupil}"></td>
-                <td th:text="${i.subject}"></td>
-                <td th:text="${i.gradePupil}"></td>
-                <td th:text="${i.id}"></td>
-                <td><a th:href="@{grade-update/{id}(id=${i.id})}">Edit</a></td>
-                <td><a th:href="@{grade-delete/{id}(id=${i.id})}">Delete</a></td>
+            <tr th:each="grade,it : ${grades}">
+                <td th:text="${it.count}"></td>
+                <!--td th:text="${grade.pupil}"></td-->
+
+                <div th:if="${grade.pupil}==null">
+                    <td text="Achtung!"></td>
+                    <td text="Achtung!"></td>
+                </div>
+                <div th:each="pu : ${pupils}"
+                     th:with="isEqual=${grade.pupil}==${pu.id}">
+                    <div th:if="${isEqual}">
+
+                        <div th:if="${pu.classP}==null">
+                            <td text="Achtung! No class!">No class!</td>
+                        </div>
+                        <div th:each="cl : ${classes}"
+                             th:with="isEqual2=${cl.id}==${pu.classP}">
+
+                            <div th:if="${isEqual2}">
+                                <div th:if="${cl.classInt}>=10">
+                                    <td th:text="${cl.classInt} + ${cl.classChar}"></td>
+                                </div>
+                                <div th:if="${cl.classInt}<10">
+                                    <td th:text="' ' + ${cl.classInt} + ${cl.classChar}"></td>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <td th:text="${pu.lastName}+ ' ' + ${pu.firstName}"></td>
+                    </div>
+                </div>
+
+
+                <!--td th:text="${i.subject}"></td-->
+
+                <div th:if="${grade.subject}==null">
+                    <td text=""></td>
+                </div>
+                <div th:each="subj : ${subjects}"
+                     th:with="isEqual=${grade.subject}==${subj.id}">
+
+                    <div th:if="${isEqual}">
+                        <td th:text="${subj.subjectName}"></td>
+                    </div>
+                </div>
+
+
+                <td th:text="${grade.gradePupil}"></td>
+                <!--td th:text="${i.id}"></td-->
+                <td><a th:href="@{grade-update/{id}(id=${grade.id})}">Edit</a></td>
+                <td><a th:href="@{grade-delete/{id}(id=${grade.id})}">Delete</a></td>
             </tr>
-            <tr th:each="i : ${subjects}">
+            <!--tr th:each="i : ${subjects}">
                 <td th:text="${i.subjectName}"></td>
-            </tr>
+            </tr-->
             </tbody>
         </table>
+
+
+
+        <script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable2");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+
+
+
+
+
     </div>
     <p><a href="/grade-create">Create grade</a></p>
     <h3>

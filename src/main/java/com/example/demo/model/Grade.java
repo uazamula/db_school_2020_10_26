@@ -3,11 +3,12 @@ package com.example.demo.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Data
 @Entity
 @Table(name = "grades")
-public class Grade {
+public class Grade implements Comparable<Grade>{
    @Column(name = "pupil")
     private Long pupil;
    @Column(name = "subject")
@@ -18,6 +19,11 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Override
+    public int compareTo(Grade other) {
+       return  this.getId().compareTo(other.getId());
+    }
 
     public Long getPupil() {
         return pupil;
@@ -50,4 +56,6 @@ public class Grade {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 }
