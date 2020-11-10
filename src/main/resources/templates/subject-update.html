@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <title>Subjects</title>
     <style>
         input:invalid {border-color: red;}
@@ -9,38 +15,49 @@
     </style>
 </head>
 <body>
+<div class="container-fluid">
 <form action="#" th:action="@{/subject-update}" th:object="${subject}" method="post">
     <!--label for="id">ID</label-->
     <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/>
-    <label for="subjectName">Subject</label>
-    <input type="text" th:field="*{subjectName}" id="subjectName" placeholder="Subject"
-           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+    <div class="form-group">
+        <label for="subjectName">Edit the subject's name</label>
+        <input class="form-control"
+               type="text" th:field="*{subjectName}" id="subjectName" placeholder="Subject"
+               required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
 
-    <br/> <br/>
+    </div>
     <!--label for="classId">Class(id)</label>
     <input type="number" th:field="*{classId}" id="classId" placeholder="Class(id)"-->
-    <label for="className">Select class:</label>
-    <select id = "className" name = "classId"/>
-    <option value=""> -- </option>
-    <option  th:each="i:${classes}"
-             th:value="${i.id}"
-             th:text="${i.classInt}+${i.classChar}"
-    />
-    </select>
-    <br/> <br/>
+    <div class="form-group">
+        <label for="className">Select/edit a class</label>
+        <select class="form-control"
+                id = "className" name = "classId"/>
+        <option value=""> -- </option>
+        <option  th:each="i:${classes}"
+                 th:value="${i.id}"
+                 th:text="${i.classInt}+${i.classChar}"
+                 th:selected="${subject.classId==i.id}"
+        />
+        </select>
+    </div>
     <!--label for="teacherId">Teacher(id)</label>
     <input type="number" th:field="*{teacherId}" id="teacherId" placeholder="Teacher(id)"-->
-    <label for="teacherName">Select teacher:</label>
-    <select id = "teacherName" name = "teacherId"/>
-    <option value=""> -- </option>
-    <option  th:each="i:${teachers}"
-             th:value="${i.id}"
-             th:text="${i.lastName}+' '+${i.firstName}"
-    />
-    </select>
-    <br/> <br/>
-    <input type="submit" value="Update Subject">
+    <div class="form-group">
+        <label for="teacherName">Select a teacher:</label>
+        <select class="form-control"
+                id = "teacherName" name = "teacherId"/>
+        <option value=""> -- </option>
+        <option  th:each="i:${teachers}"
+                 th:value="${i.id}"
+                 th:text="${i.lastName}+' '+${i.firstName}"
+                 th:selected="${subject.teacherId==i.id}"
+        />
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" >
+        Submit
+    </button>
 </form>
+</div>
 </body>
 </html>

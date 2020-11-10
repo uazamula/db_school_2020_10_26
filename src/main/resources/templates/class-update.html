@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <title>Update Class</title>
     <style>
         input:invalid {border-color: red;}
@@ -9,33 +15,41 @@
     </style>
 </head>
 <body>
+<div class="container-fluid">
 <form action="#" th:action="@{/class-update}" th:object="${aClass}" method="post">
     <!--label for="id">ID</label-->
 
     <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/>
-    <label for="classInt">Edit the class (integer value):</label>
-    <br>
-    <input type="number" th:field="*{classInt}" id="classInt" placeholder="Class"
-           min="1" max="11" step="1">
-    <br/><br/>
-    <label for="classChar">Edit the letter for the class:</label>
-    <br>
-    <input type="text" th:field="*{classChar}" id="classChar" placeholder="Letter"
-           required pattern = "[абвгде]">
-    <br/><br/>
-    <label>Select/change a class teacher:</label>
-    <br>
-    <select id = "class_1" name = "teacherId"/>
-    <option value="">no teacher</option>
-    <option  th:each="i:${teachers}"
-             th:value="${i.id}"
-             th:text="${i.lastName}+' '+${i.firstName}"
-    />
-    </select>
-    <!--input type="number" th:field="*{teacherId}" id="teacherId" placeholder="Teacher(id)"-->
-    <br/><br/>
-    <input type="submit" value="Update Class">
+    <div class="form-group">
+        <label for="classInt">Edit the class (integer value):</label>
+        <input class="form-control"
+               type="number" th:field="*{classInt}" id="classInt" placeholder="Class"
+               min="1" max="11" step="1">
+    </div>
+    <div class="form-group">
+        <label for="classChar">Edit the letter for the class:</label>
+        <input class="form-control"
+               type="text" th:field="*{classChar}" id="classChar" placeholder="Letter"
+               required pattern = "[абвгде]">
+    </div>
+
+    <div class="form-group">
+        <label>Select/change a class teacher:</label>
+        <select class="form-control"
+                id = "class_1" name = "teacherId"/>
+        <option value="">no teacher</option>
+        <option  th:each="i:${teachers}"
+                 th:value="${i.id}"
+                 th:text="${i.lastName}+' '+${i.firstName}"
+                 th:selected="${aClass.teacherId==i.id}"
+        />
+        </select>
+        <!--input type="number" th:field="*{teacherId}" id="teacherId" placeholder="Teacher(id)"-->
+    </div>
+    <button type="submit" class="btn btn-primary" >
+        Submit
+    </button>
 </form>
+</div>
 </body>
 </html>

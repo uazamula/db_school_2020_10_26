@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Teacher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <style>
         input:invalid {border-color: red;}
         input:valid {border-color: green;}
@@ -10,25 +16,34 @@
 
 </head>
 <body>
+<div class="container-fluid">
 <form action="#" h:action="@{/teacher-create}" h:object="${teacher}" method="post">
-    <label for="lastName">Last name</label>
-    <input type="text"
-           id="lastName"
-           name="lastName"
-           h:value="*{lastName}"
-           placeholder="Last Name"
-           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"
-           >
-    <br><br>
-    <label for="firstName">First name</label>
-    <input type="text"
-           id="firstName"
-           name="firstName"
-           h:value="*{firstName}"
-           placeholder="First Name"
-           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
-    <br><br>
-    <input type="submit" value="Add Teacher">
+    <div class="form-group">
+        <label for="lastName">Last name</label>
+        <input class="form-control"
+               type="text"
+               id="lastName"
+               name="lastName"
+               h:value="*{lastName}"
+               placeholder="Last Name"
+               required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"
+               >
+    </div>
+    <div class="form-group">
+        <label for="firstName">First name</label>
+        <input class="form-control"
+               type="text"
+               id="firstName"
+               name="firstName"
+               h:value="*{firstName}"
+               placeholder="First Name"
+               required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+">
+    </div>
+
+    <button type="submit" class="btn btn-primary" >
+        Submit
+    </button>
 </form>
+</div>
 </body>
 </html>

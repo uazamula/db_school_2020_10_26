@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <title>Classes</title>
     <style>
         input:invalid {border-color: red;}
@@ -9,26 +15,39 @@
     </style>
 </head>
 <body>
+<div class="container-fluid">
 <form action="#" h:action="@{/clas-create}" h:object="${class_}" method="post">
-    <label for="classInt">Input a class (integer value):</label>
-    <br>
-    <input type="number" min="1" max="11" step="1"
-           id="classInt" name = "classInt" h:value="*{classInt}"  placeholder="Class"/>
-    <br><br>
-    <label for="classChar">Input a letter for the class:</label>
-    <br>
-    <input type="text" required pattern = "[абвгде]"
-           id="classChar" name="classChar" h:value="*{classChar}"  placeholder="Letter"/>
-    <br><br>
-    <label>Select a class teacher:</label>
-    <br>
-    <select id = "class_1" name = "teacherId"/>
-    <option value="">no teacher</option>
-    <option  th:each="i:${teachers}"
-             th:value="${i.id}"
-             th:text="${i.lastName}+' '+${i.firstName}"
-    />
-    </select>
+    <div class="form-group">
+        <label for="classInt">Input a class (integer value):</label>
+        <input class="form-control"
+               type="number" min="1" max="11" step="1"
+               id="classInt"
+               name = "classInt"
+               h:value="*{classInt}"
+               placeholder="Class"/>
+    </div>
+    <div class="form-group">
+        <label for="classChar">Input a letter for the class:</label>
+        <input class="form-control"
+               type="text"
+               required pattern = "[абвгде]"
+               id="classChar"
+               name="classChar"
+               h:value="*{classChar}"
+               placeholder="Letter"/>
+    </div>
+    <div class="form-group">
+        <label>Select a class teacher:</label>
+        <select class="form-control"
+                id = "class_1"
+                name = "teacherId"/>
+        <option value="">no teacher</option>
+        <option  th:each="i:${teachers}"
+                 th:value="${i.id}"
+                 th:text="${i.lastName}+' '+${i.firstName}"
+        />
+        </select>
+    </div>
     <!--input list="teachers" name="teacherId" />
     <datalist id = "teachers" name = "teacherId">
     <option value="">no teacher</option>
@@ -38,9 +57,10 @@
     >text</option>
     </datalist-->
 
-    <br><br>
-    <!--input type="number" id="teacherId" name="teacherId" h:value="*{teacherId}"  placeholder="Teacher(id)"/-->
-    <input type="submit" value="Create Class"/>
+    <button type="submit" class="btn btn-primary" >
+        Submit
+    </button>
 </form>
+</div>
 </body>
 </html>

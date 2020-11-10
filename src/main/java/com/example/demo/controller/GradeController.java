@@ -37,12 +37,58 @@ public class GradeController {
     @GetMapping("/grades")
     public String findAll(Model model)
     {
-        gradeNew(model);
+        List<Grade> grades = gradeService.findAll();
+        model.addAttribute("grades",grades);
+
+        List<Subject> subjects = subjectService.findAll();////////////////////////////////////////////
+        model.addAttribute("subjects", subjects);////////////////////////////////////
+
+        List<Pupil> pupils = pupilService.findAll();////////////////////////////////////////////
+        model.addAttribute("pupils", pupils);////////////////////////////////////
+
+        List<Class> classes = classService.findAll();/////////////////////////
+        Collections.sort(classes);
+        model.addAttribute("classes", classes);////////////////
         return "grade-list";
     }
 
     @GetMapping("/grade-create")
     public String createGradeFormNew(Grade grade, Model model, Subject subject, Pupil pupil){
+
+
+        //gradeNew(model);
+        gradeNew1(model);
+
+        return "/grade-create";
+    }
+
+    @PostMapping("/grade-create")
+    public String createGrade(Grade grade, Model model, Subject subject){
+        gradeService.saveGrade(grade);
+        return "redirect:/grades";
+    }
+
+    @GetMapping("grade-delete/{id}")
+    public String deleteGrade(@PathVariable("id") Long id){
+        gradeService.deleteById(id);
+        return "redirect:/grades";
+    }
+
+    @GetMapping("grade-update/{id}")
+    public String updateGradeForm(@PathVariable("id") Long id, Model model){
+        Grade grade = gradeService.findById(id);
+        model.addAttribute("grade",grade);// "grade" hier != "grade" field in model
+        gradeNew1(model);
+        return "grade-update";
+    }
+    @PostMapping("/grade-update")
+    public String updateGrade(Grade grade){
+        gradeService.saveGrade(grade);
+        return "redirect:/grades";
+    }
+
+
+    public void gradeNew1(Model model){
         List<Subject> subjects = subjectService.findAll();////////////////////////////////////////////
 //        Collections.sort(subjects);
 //        model.addAttribute("subjects", subjects);////////////////////////////////////
@@ -79,40 +125,9 @@ public class GradeController {
         }
         Collections.sort(subjectNewList);
         model.addAttribute("subjectNewList", subjectNewList);
-
-        //gradeNew(model);
-
-        return "/grade-create";
     }
 
-    @PostMapping("/grade-create")
-    public String createGrade(Grade grade, Model model, Subject subject){
-        gradeService.saveGrade(grade);
-        return "redirect:/grades";
-    }
-
-    @GetMapping("grade-delete/{id}")
-    public String deleteGrade(@PathVariable("id") Long id){
-        gradeService.deleteById(id);
-        return "redirect:/grades";
-    }
-
-    @GetMapping("grade-update/{id}")
-    public String updateGradeForm(@PathVariable("id") Long id, Model model){
-        Grade grade = gradeService.findById(id);
-        model.addAttribute("grade",grade);// "grade" hier != "grade" field in model
-        return "grade-update";
-    }
-    @PostMapping("/grade-update")
-    public String updateGrade(Grade grade){
-        gradeService.saveGrade(grade);
-        return "redirect:/grades";
-    }
-
-
-
-
-    public void gradeNew(Model model){
+   /* public void gradeNew(Model model){
         List<GradeNew> gradeNewList = new ArrayList<>();
 
         List<Grade> grades = gradeService.findAll();
@@ -179,4 +194,6 @@ public class GradeController {
 
 
     }
+
+    */
 }

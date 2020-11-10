@@ -4,6 +4,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <title>Grades</title>
     <style>
         input:invalid {border-color: red;}
@@ -11,7 +17,8 @@
     </style>
 </head>
 <body>
-<form action="#" th:action="@{/grade-create}" th:object="${grade}" method="post"/>
+<div class="container-fluid">
+<form action="#" th:action="@{/grade-create}" th:object="${grade}" method="post">
     <!--label for="className">Class: </label-->
     <!--input type="number" id="pupil" name="pupil" th:value="*{pupil}"  placeholder="Pupil(id)"/-->
 <!--select id = "className" name = "class_"/>
@@ -21,26 +28,31 @@
          th:text="${i.classInt}+${i.classChar}"
 />
 </select>
-<br--><br>
-<label for="pupilName">Pupil: </label>
-<select id = "pupilName" name = "pupil"/>
-<option disabled>add pupil</option>
-<option  th:each="i:${pupils}"
-         th:value="${i.id}"
-         th:text="${i.lastName}+' '+${i.firstName}"
-         th:selected="(${i.id} == *{grade.pupil})"
-/>
-</select>
-<br><br>
-<label for="subjectName">Subject: </label>
-<select id = "subjectName" name = "subject"/>
-<option disabled>add subject</option>
-<option  th:each="i:${subjectNewList}"
-         th:value="${i.id}"
-         th:text="${i.subjectName}
-                + ' (' + ${i.className} + ' class)'"
-         th:selected="(${i.id} == *{grade.subject})"></option>
-</select>
+<br-->
+    <div class="form-group">
+        <label for="pupilName">Pupil: </label>
+        <select class="form-control"
+                id = "pupilName"
+                name = "pupil"/>
+        <option disabled>add pupil</option>
+        <option  th:each="i:${pupils}"
+                 th:value="${i.id}"
+                 th:text="${i.lastName}+' '+${i.firstName}"
+        />
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="subjectName">Subject: </label>
+        <select class="form-control"
+                id = "subjectName"
+                name = "subject"/>
+        <option disabled>add subject</option>
+        <option  th:each="i:${subjectNewList}"
+                 th:value="${i.id}"
+                 th:text="${i.subjectName}
+                        + ' (' + ${i.className} + ' class)'"></option>
+        </select>
+    </div>
 <!--option disabled>add subject</option>
 <option  th:each="i:${subjectNewList}"
          th:value="${i.id}"
@@ -52,12 +64,20 @@
 
 <!--label for="subject">Subject(id)</label>
 <input type="number" id="subject" name="subject" th:value="*{subject}"  placeholder="Subject(id)"/-->
-<br><br>
-<label for="gradePupil">Grade: </label>
-<input type="number" id="gradePupil" name="gradePupil" th:value="*{gradePupil}"  placeholder="Grade"
-       min="0" max="100" step="1"/>
-<br><br>
-
-<input type="submit" value="Add Grade"/>
+    <div class="form-group">
+        <label for="gradePupil">Grade: </label>
+        <input class="form-control"
+               type="number"
+               id="gradePupil"
+               name="gradePupil"
+               th:value="*{gradePupil}"
+               placeholder="Grade"
+               min="0" max="100" step="1"/>
+    </div>
+    <button type="submit" class="btn btn-primary" >
+        Submit
+    </button>
+</form>
+</div>
 </body>
 </html>

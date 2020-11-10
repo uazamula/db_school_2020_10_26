@@ -3,40 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Subject-create</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <style>
         input:invalid {border-color: red;}
         input:valid {border-color: green;}
     </style>
 </head>
 <body>
+<div class="container-fluid">
     <form action="#" th:action="@{/subject-create}" th:object="${subject}" method="post"/>
-    <label for="subjectName">Subject:</label>
-    <input type="text" id="subjectName" name="subjectName" th:value="*{subjectName}"  placeholder="Subject"
-           required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"/>
-    <br><br>
-    <label for="subjectName">Select class:</label>
-    <select id = "subject1" name = "classId"/>
-    <option value=""> -- </option>
-    <option  th:each="i:${classes}"
-             th:value="${i.id}"
-             th:text="${i.classInt}+${i.classChar}"
-    />
-    </select>
-    <br><br>
-    <!--label for="classId">Class(id)</label>
-    <input type="number" id="classId" name="classId" th:value="*{classId}"  placeholder="Class(id)"/-->
-    <label for="subjectName">Select teacher:</label>
-    <select id = "subject2" name = "teacherId"/>
-    <option value=""> -- </option>
-    <option  th:each="i:${teachers}"
-             th:value="${i.id}"
-             th:text="${i.lastName}+' '+${i.firstName}"
-    />
-    </select>
-    <br><br>
-    <!--label for="teacherId">Teacher(id)</label>
-    <input type="number" id="teacherId" name="teacherId" th:value="*{teacherId}"  placeholder="Teacher(id)"/-->
-    <input type="submit" value="Create Subject"/>
+    <div class="form-group">
+        <label for="subjectName">Subject:</label>
+        <input class="form-control"
+               type="text"
+               id="subjectName"
+               name="subjectName"
+               th:value="*{subjectName}"
+               placeholder="Subject"
+               required pattern="[А-ЯЇЄҐІA-Z][- А-ЯЇЄҐІA-Zа-яїєґіa-z']+"/>
+    </div>
+    <div class="form-group">
+        <label for="subjectName">Select class:</label>
+        <select class="form-control"
+                id = "subject1"
+                name = "classId"/>
+        <option value=""> No class </option>
+        <option  th:each="i:${classes}"
+                 th:value="${i.id}"
+                 th:text="${i.classInt}+${i.classChar}"
+        />
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="subjectName">Select teacher:</label>
+        <select class="form-control"
+                id = "subject2"
+                name = "teacherId"/>
+        <option value=""> No teacher </option>
+        <option  th:each="i:${teachers}"
+                 th:value="${i.id}"
+                 th:text="${i.lastName}+' '+${i.firstName}"
+        />
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary" >
+        Submit
+    </button>
     </form>
+</div>
 </body>
 </html>

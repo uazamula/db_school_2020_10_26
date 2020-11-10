@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <title>Grades</title>
     <style>
         input:invalid {border-color: red;}
@@ -9,22 +15,41 @@
     </style>
 </head>
 <body>
+<div class="container-fluid">
 <form action="#" th:action="@{/grade-update}" th:object="${grade}" method="post">
     <br/>
     <!--label for="pupil">Pupil(id)</label-->
     <input hidden type="number" th:field="*{pupil}" id="pupil" placeholder="Pupil(id)">
 
-    <!--label for="subject">Subject(id)</label-->
-    <input hidden type="number" th:field="*{subject}" id="subject" placeholder="Subject(id)">
+    <!--label for="subject">Subject(id)</label>
+    <input hidden type="number" th:field="*{subject}" id="subject" placeholder="Subject(id)"-->
+    <div class="form-group">
+        <label for="subjectName">Edit the subject: </label>
+        <select class="form-control"
+                id = "subjectName"
+                name = "subject"/>
+        <option  th:each="i:${subjectNewList}"
+                 th:value="${i.id}"
+                 th:text="${i.subjectName}
+                        + ' (' + ${i.className} + ' class)'"
+                 th:selected="${grade.subject==i.id}"></option>
+        </select>
+    </div>
 
-    <label for="gradePupil">Grade</label>
-    <input type="number" th:field="*{gradePupil}" id="gradePupil" placeholder="Grade"
-           min="0" max="100" step="1">
+    <div class="form-group">
+        <label for="gradePupil">Edit the grade</label>
+        <input class="form-control"
+               type="number" th:field="*{gradePupil}" id="gradePupil" placeholder="Grade"
+               min="0" max="100" step="1">
+    </div>
     <!--br/><br/>
     <label for="id">ID</label-->
     <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/><br/>
-    <input type="submit" value="Update Grade">
+
+    <button type="submit" class="btn btn-primary" >
+        Submit
+    </button>
 </form>
+</div>
 </body>
 </html>

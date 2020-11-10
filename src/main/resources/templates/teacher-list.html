@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <title>Teachers</title>
     <script>
 function sortTable(n) {
@@ -60,25 +66,23 @@ function sortTable(n) {
 }
 </script>
     <style type="text/css">
-    Table{
-    width: auto; /* Ширина таблицы */
-    border-collapse: collapse; /* Убираем двойные линии между ячейками */
-    }
-    TD, TH {
-    padding: 5px; /* Поля вокруг содержимого cells of таблицы */
-    border: 1px solid black; /* Параметры рамки */
-    }
     TH {
     background: #b0e0e6; /* Цвет фона */
     }
     </style>
 </head>
 <body>
+<nav class="nav nav-tabs">
+    <a class="nav-item nav-link active" href="/teachers">Teachers</a>
+    <a class="nav-item nav-link" href="/classes">Classes</a>
+    <a class="nav-item nav-link" href="/pupils">Pupils</a>
+    <a class="nav-item nav-link" href="/subjects">Subjects</a>
+    <a class="nav-item nav-link" href="/grades">Grades</a>
+</nav>
 <div th:switch="${teachers}">
     <h2 th:case="null">No teachers found!</h2>
     <div th:case="*">
-        <h2>Teachers</h2>
-        <table id="myTable2">
+        <table id="myTable2" class="table table-striped table-bordered table-sm" >
             <thead>
             <tr>
                 <th onclick="sortTable(0)">No</th>
@@ -95,19 +99,20 @@ function sortTable(n) {
 
                 <td th:text="${i.lastName}"></td>
                 <td th:text="${i.firstName}"></td>
-                <td><a th:href="@{teacher-update/{id}(id=${i.id})}">Edit</a></td>
-                <td><a th:href="@{teacher-delete/{id}(id=${i.id})}">Delete</a></td>
+                <td><a class="btn btn-primary btn-sm"
+                       role="button"
+                       th:href="@{teacher-update/{id}(id=${i.id})}"
+                       >Edit</a></td>
+                <td><a class="btn btn-danger btn-sm"
+                       role="button"
+                       th:href="@{teacher-delete/{id}(id=${i.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/teacher-create">Add teacher</a></p>
-    <h3>
-        <p><a href="/classes">Classes</a></p>
-        <p><a href="/pupils">Pupils</a></p>
-        <p><a href="/subjects">Subjects</a></p>
-        <p><a href="/grades">Grades</a></p>
-    </h3>
+    <p><a href="/teacher-create" class="btn btn-primary"
+          role="button">
+        Add a new teacher</a></p>
 </div>
 </body>
 </html>
