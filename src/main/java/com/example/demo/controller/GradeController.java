@@ -50,6 +50,7 @@ public class GradeController {
         Collections.sort(classes);
         model.addAttribute("classes", classes);////////////////
         return "grade-list";
+
     }
 
     @GetMapping("/grade-create")
