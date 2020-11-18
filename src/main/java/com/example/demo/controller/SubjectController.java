@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Controller
 public class SubjectController {
@@ -31,25 +29,20 @@ public class SubjectController {
     }
     @GetMapping("/subjects")
     public String findAll(Model model){
-        List<Subject> subjects = subjectService.findAll();
-        Collections.sort(subjects);
-        model.addAttribute("subjects", subjects);
-        List<Class> classes = classService.findAll();/////////////////////////
-        model.addAttribute("classes", classes);////////////////
-        List<User> users = userService.findAll();////////////////////////////////////////////
-        model.addAttribute("teachers", users);////////////////////////////////////
+//        List<Subject> subjects = subjectService.findAll();
+//        Collections.sort(subjects);
+//        model.addAttribute("subjects", subjects);
+//        List<Class> classes = classService.findAll();/////////////////////////
+//        model.addAttribute("classes", classes);////////////////
+//        List<User> users = userService.findAll();////////////////////////////////////////////
+//        model.addAttribute("teachers", users);////////////////////////////////////
+        subjectNew(model);
+
         return "subject-list";
     }
     @GetMapping("/subject-create")
     public String createSubjectForm(Subject subject, Model model){
-        List<Class> classes = classService.findAll();/////////////////////////
-        Collections.sort(classes);
-        model.addAttribute("classes", classes);////////////////
-        List<User> users = userService.findAll();////////////////////////////////////////////
-        Collections.sort(users);
-        model.addAttribute("teachers", users);////////////////////////////////////
-
-
+        classesAndTeachersSorted(model);
         return "/subject-create";
     }
 
@@ -69,17 +62,72 @@ public class SubjectController {
     public String updateSubjectForm(@PathVariable("id") Long id, Model model){//!!!!!!! id_s
         Subject subject = subjectService.findById(id);
         model.addAttribute("subject", subject);
-        List<Class> classes = classService.findAll();/////////////////////////
-        Collections.sort(classes);
-        model.addAttribute("classes", classes);////////////////
-        List<User> users = userService.findAll();////////////////////////////////////////////
-        Collections.sort(users);
-        model.addAttribute("teachers", users);////////////////////////////////////
+       classesAndTeachersSorted(model);
         return "subject-update";
     }
     @PostMapping("/subject-update")
     public String updateSubject(Subject subject){
         subjectService.saveSubject(subject);
         return "redirect:/subjects";
+    }
+
+    public void classesAndTeachersSorted(Model model){
+        List<Class> classes = classService.findAll();/////////////////////////
+        Collections.sort(classes);
+        model.addAttribute("classes", classes);////////////////
+        List<User> users = userService.findAll();////////////////////////////////////////////
+        Collections.sort(users);
+        model.addAttribute("teachers", users);////////////////////////////////////
+    }
+
+    public void subjectNew(Model model){
+        List<Subject> subjects = subjectService.findAll();
+        List<Class> classes = classService.findAll();
+        List<User> users = userService.findAll();
+
+        List<SubjectNew> subjectNewList = new ArrayList<>();
+/////////////////////////////////////////////////////////////////////////////////////////////
+        LocalDateTime t1,t2;    int sec1,sec2,diff;    t1=LocalDateTime.now();
+        sec1=t1.getNano();   System.out.println("time begin: " + t1 + "   nanosec:" + sec1 );
+
+        Map<Long,String> mapTeacher = new HashMap<>();
+        for (User eUser : users)
+            mapTeacher.put(eUser.getId(),
+                    eUser.getLastName() + " " + eUser.getFirstName());
+
+        Map<Long,String> mapClasses = new HashMap<>();
+        for (Class eClass : classes) {
+            String className = eClass.getClassInt() + "" + eClass.getClassChar();
+            if(eClass.getClassInt()<10)
+                className = " " + className;
+            mapClasses.put(eClass.getId(), className);
+        }
+
+        for(Subject eSubject : subjects) {
+            String className=null;
+            String teacherName=null;
+            if (eSubject.getClassId()!=null)
+                className = mapClasses.get(eSubject.getClassId());
+            if(eSubject.getTeacherId()!=null)
+                teacherName=mapTeacher.get(eSubject.getTeacherId());
+
+            SubjectNew subjectNew = new SubjectNew(
+                    eSubject.getId(),
+                    eSubject.getSubjectName(),
+                    eSubject.getClassId(), className,
+                    eSubject.getTeacherId(), teacherName);
+
+            subjectNewList.add(subjectNew);
+
+        }
+
+        t2=LocalDateTime.now();    sec2=t2.getNano();
+        System.out.println("time end: " + t2 + "   nanosec:" + sec2 );
+        System.out.println("duration(seconds): " + (sec2 - sec1)/1e+9 );
+
+        Collections.sort(subjectNewList);
+        model.addAttribute("subjectNewList", subjectNewList);
+        model.addAttribute("classes", classes);
+        model.addAttribute("teachers", users);
     }
 }

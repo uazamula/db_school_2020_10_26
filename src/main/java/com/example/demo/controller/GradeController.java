@@ -112,17 +112,17 @@ public class GradeController {
 
         for(Subject eSubject : subjects) {
             String className=null;
-            if (eSubject.getClassId()!=null) {
+            if (eSubject.getClassId()!=null)
                 className = mapClasses.get(eSubject.getClassId());
 
-                SubjectNew subjectNew = new SubjectNew(
-                        eSubject.getId(),
-                        eSubject.getSubjectName(),
-                        eSubject.getClassId(), className,
-                        eSubject.getTeacherId(), "Add a bit of code to output teacher's name here");
+            SubjectNew subjectNew = new SubjectNew(
+                    eSubject.getId(),
+                    eSubject.getSubjectName(),
+                    eSubject.getClassId(), className,
+                    eSubject.getTeacherId(), "Add a bit of code to output teacher's name here");
 
-                subjectNewList.add(subjectNew);
-            }
+            subjectNewList.add(subjectNew);
+
         }
         Collections.sort(subjectNewList);
         model.addAttribute("subjectNewList", subjectNewList);
