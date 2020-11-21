@@ -94,22 +94,29 @@ public class UserController {
         LocalDateTime t1,t2;    int sec1,sec2,diff;    t1=LocalDateTime.now();
         sec1=t1.getNano();   System.out.println("time begin: " + t1 + "   nanosec:" + sec1 );
 
-//        EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
+//        Обязательно установите свойство cachePrepStmts в true, ибо по умолчанию оно отключено! Используйте параметры соединения, такие как prepStmtCacheSize и prepStmtCacheSqlLimit для конфигурации MySQL драйвера.
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+//                      Variant1
 //        Query q = em.createNativeQuery("SELECT a.id, a.first_name, a.last_name FROM users a LIMIT "
-//                + (pageNo-1)*pageSize + ", " + pageSize);
-//        List<Object[]> users = q.getResultList();
-//        model.addAttribute("teachers", users);
-//        for(Object[] a : users){
-//            System.out.println(a[0] + " " + a[1] + " " +a[2]);
-//        }
-//        em.getTransaction().commit();
-//        em.close();
-//
-//        t2=LocalDateTime.now();    sec2=t2.getNano();
-//        System.out.println("time end: " + t2 + "   nanosec:" + sec2 );
-//        System.out.println("duration(seconds): " + (sec2 - sec1)/1e+9 );
-//        ////emf.close();
+//                                      + (pageNo-1)*pageSize + ", " + pageSize);
+//                      Variant2
+        Query q = em.createNativeQuery("SELECT a.id, a.first_name, a.last_name FROM users a LIMIT ?,?");
+        q.setParameter(1, (pageNo-1)*pageSize);
+        q.setParameter(2, pageSize);
+
+        List<Object[]> users = q.getResultList();
+        model.addAttribute("teachers", users);
+        for(Object[] a : users){
+            System.out.println(a[0] + " " + a[1] + " " +a[2]);
+        }
+        em.getTransaction().commit();
+        em.close();
+
+        t2=LocalDateTime.now();    sec2=t2.getNano();
+        System.out.println("time end: " + t2 + "   nanosec:" + sec2 );
+        System.out.println("duration(seconds): " + (sec2 - sec1)/1e+9 );
+        ////emf.close();
 
         return "index-teachers";
     }

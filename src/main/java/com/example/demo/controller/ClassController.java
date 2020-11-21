@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityManager;
 import javax.swing.*;
@@ -97,8 +98,6 @@ public class ClassController {
         model.addAttribute("teachers", users);////////////////////////////////////
         //fClasses1 Error message when exception is thrown
         errmsg=0;
-//        for(User e:users)
-//            System.out.println(e.getLastName() + e.getFirstName());
         return "clas-create";
     }
 
@@ -139,9 +138,12 @@ public class ClassController {
     }
     @GetMapping("classes"+"{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
                                 Model model){
         int pageSize = 5;
-        Page<Class> page = classService.findPaginated(pageNo, pageSize);
+        Page<Class> page = classService.findPaginated(pageNo, pageSize,
+                                                        sortField, sortDir);
         List<Class> classList = page.getContent();
 
         classesNew(model,classList);
@@ -150,12 +152,17 @@ public class ClassController {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("pageSize", pageSize);
-        numberOfPage=Integer.toString(pageNo);
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        numberOfPage=Integer.toString(pageNo)+"?sortField="+sortField+"&sortDir="+sortDir;
         return "index-classes";
     }
     @GetMapping("/classes")
     public String viewHomePage(Model model){
-        return findPaginated(1,model);
+        return findPaginated(1, "classInt", "asc", model);
     }
 
 

@@ -23,7 +23,7 @@
     <a class="nav-item nav-link active" href="/subjects">Subjects</a>
     <a class="nav-item nav-link" href="/grades">Grades</a>
 </nav>
-<div th:switch="${subjectNewList}">
+<div th:switch="${subjects}">
     <h2 th:case="null">No subjects found!</h2>
     <div th:case="*">
         <table id="myTable2" class="table table-striped table-bordered table-sm" >
@@ -39,14 +39,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="subject,iter : ${subjectNewList}">
+            <tr th:each="subject,iter : ${subjects}">
                 <td th:text="${iter.count}"></td>
                 <!--td th:text="${subject.id}"></td-->
-                <td th:text="${subject.subjectName}"></td>
+                <td th:text="${subject[1]}"></td>
 
 
-
-                <td th:text="${subject.className}"></td>
+                <div th:if="${subject[4]}!=null">
+                    <td th:text="${subject[4]} + ${subject[5]}"></td>
+                </div>
+                <div th:if="${subject[4]}==null">
+                    <td th:text="-"></td>
+                </div>
                 <!--div th:if="${subject.classId}==null">
                     <td text="">-</td>
                 </div>
@@ -64,7 +68,12 @@
 
 
 
-                <td th:text="${subject.teacherName}"></td>
+                <div th:if="${subject[3]}!=null">
+                    <td th:text="${subject[3]} + ' ' + ${subject[2]}"></td>
+                </div>
+                <div th:if="${subject[3]}==null">
+                    <td>-</td>
+                </div>
 
                 <!--div th:if="${subject.teacherId}==null">
                     <td text="">-</td>
@@ -80,10 +89,10 @@
 
                 <td><a class="btn btn-primary btn-sm"
                        role="button"
-                       th:href="@{subject-update/{id}(id=${subject.id})}">Edit</a></td>
+                       th:href="@{subject-update/{id}(id=${subject[0]})}">Edit</a></td>
                 <td><a class="btn btn-danger btn-sm"
                        role="button"
-                       th:href="@{subject-delete/{id}(id=${subject.id})}">Delete</a></td>
+                       th:href="@{subject-delete/{id}(id=${subject[0]})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
